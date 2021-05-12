@@ -1,0 +1,16 @@
+.red {
+  color: red;
+}
+
+.hide {
+  display: none;
+}
+
+.rounded {
+  border-radius: 50%;
+}
+
+.button {
+  margin-top: 50px;
+  width: 150px;
+}
