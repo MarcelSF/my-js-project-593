@@ -6,29 +6,35 @@
 //   button.disabled = true;
 // });
 
+// CODE FOR OMDB
+
+const results = document.querySelector('ul')
+
+const searchMovies = (query) => {
+  fetch(`http://www.omdbapi.com/?s=${query}&apikey=adf1f2d7`)
+    .then(response => response.json())
+    .then((data) => {
+      data.Search.forEach((result) => {
+        const movie = `<li class="list-inline-item">
+          <img src="${result.Poster}" alt="">
+          <p>${result.Title}</p>
+        </li>`;
+        results.insertAdjacentHTML("beforeend", movie);
+      });
+    });
+};
 
 const form = document.querySelector('.form')
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
-  const input = document.querySelector('.title').value
-  fetch(`http://www.omdbapi.com/?s=${input}&apikey=adf1f2d7`)
-    .then(response => response.json()) // Parsing the response into a JSON
-    .then((data) => {
-      const results = document.querySelector('#results');
-      results.innerHTML = ''
-      data.Search.forEach((result) => {
-        // Here we BUILD the HTML element
-        const movieTag = `<li class="list-inline-item">
-          <img src="${result.Poster}" alt="">
-          <p>${result.Title}</p>
-        </li>`;
-        // We insert the HTML element we just built into the results list
-        results.insertAdjacentHTML("beforeend", movieTag);
-      })
-    });
+  const input = document.querySelector('.title').value;
+  results.innerHTML = '';
+  searchMovies(input);
 })
 
+
+// CODE FOR MY-TEACHING-API.HEROKUAPP.COM
 const sendSaying = (event) => {
   event.preventDefault;
   const author = document.querySelector('#author').value;
